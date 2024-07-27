@@ -1,4 +1,6 @@
-const scamPhrases = {
+import random
+
+scam_phrases = {
     "You've won a prize": 90,
     "Act now, limited time offer": 80,
     "Verify your account information": 85,
@@ -24,9 +26,9 @@ const scamPhrases = {
     "This is a limited time offer": 70,
     "Confirm your password": 85,
     "Your bank account is at risk": 90
-};
+}
 
-const sampleEmail = `Subject: Important Account Notice - Action Required
+sample_email = '''Subject: Important Account Notice - Action Required
 
 Dear Vivek,
 
@@ -51,39 +53,35 @@ Sincerely,
 
 Albert Johnson
 Security Team
-The Company INC.`;
+The Company INC.'''
 
-const sampleTextMessage = `Your package is scheduled for delivery but we need to confirm your shipping address to ensure timely delivery. Please verify your address by clicking the link below:
+sample_text_message = '''Your package is scheduled for delivery but we need to confirm your shipping address to ensure timely delivery. Please verify your address by clicking the link below:
 
 This confirmation is required to avoid any delays or issues with your delivery. If we do not receive a response within 24 hours, your package will be returned to the sender.
 
-Thank you for your prompt attention to this matter.`;
+Thank you for your prompt attention to this matter.'''
 
-function scamSentenceLooper(message) {
-    const emailSentenceList = sampleEmail.split(".");
-    for (let i = 0; i < emailSentenceList.length; i++) {
-        const sentence = emailSentenceList[i].trim();
-        const result = contextMatching(sentence);
-        if (result[0]) {
-            console.log(`Scam detected: ${result[1]} with a score of ${result[2]}`);
-        } else {
-            console.log('Probably Not a scam. Sentence: ', result[1]);
-        }
-    }
-}
+def scam_sentence_looper(message):
+    email_sentence_list = message.split(".")
+    for sentence in email_sentence_list:
+        sentence = sentence.strip()
+        result = context_matching(sentence)
+        if result[0]:
+            print(f"Scam detected: {result[1]} with a score of {result[2]}")
+        else:
+            print('Probably Not a scam. Sentence:', result[1])
 
-function contextMatching(sentence) {
-    const scamKeys = Object.keys(scamPhrases);
-    const randomIndex = Math.floor(Math.random() * scamKeys.length);
-    const randomScam = scamKeys[randomIndex];
-    const scamScore = scamPhrases[randomScam];
-    const randomOutcome = Math.random() < 0.5;
+def context_matching(sentence):
+    scam_keys = list(scam_phrases.keys())
+    random_index = random.randint(0, len(scam_keys) - 1)
+    random_scam = scam_keys[random_index]
+    scam_score = scam_phrases[random_scam]
+    random_outcome = random.random() < 0.5
 
-    return randomOutcome ? [true, randomScam, scamScore] : [false, sentence];
-}
+    return [True, random_scam, scam_score] if random_outcome else [False, sentence]
 
-// Call the scamSentenceLooper function with sampleEmail
-scamSentenceLooper(sampleEmail);
+# Call the scam_sentence_looper function with sample_email
+scam_sentence_looper(sample_email)
 
-// Call the scamSentenceLooper function with sampleTextMessage (if you want to test with text messages)
-scamSentenceLooper(sampleTextMessage);
+# Call the scam_sentence_looper function with sample_text_message (if you want to test with text messages)
+scam_sentence_looper(sample_text_message)
