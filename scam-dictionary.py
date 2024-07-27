@@ -23,6 +23,6 @@ scam_phrases = {
     "You have unpaid fines": 80,
     "This is a limited time offer": 70,
     "Confirm your password": 85,
-    "Your bank account is at risk": 90
+    "You need to pay a small fee to claim you reward": 80
 }
 
