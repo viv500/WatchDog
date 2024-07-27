@@ -72,11 +72,10 @@ def scam_sentence_looper(message):
             print('Probably Not a scam. Sentence:', result[1])
 
 def context_matching(sentence):
-    scam_keys = list(scam_phrases.keys())
-    random_index = random.randint(0, len(scam_keys) - 1)
-    random_scam = scam_keys[random_index]
+    scams = list(scam_phrases.keys())
+    random_scam = random.choice(scams)
     scam_score = scam_phrases[random_scam]
-    random_outcome = random.random() < 0.5
+    random_outcome = random.choice([True, False])
 
     return [True, random_scam, scam_score] if random_outcome else [False, sentence]
 
