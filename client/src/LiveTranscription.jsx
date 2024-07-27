@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios'
 
 const LiveTranscription = () => {
   const [transcript, setTranscript] = useState('');
@@ -39,6 +40,12 @@ const LiveTranscription = () => {
     setRecognition(recognition);
   }, []);
 
+  useEffect(() => {
+    if (transcript) {
+      sendDataToServer();
+    }
+  }, [transcript])
+
   const startRecognition = () => {
     if (recognition) {
       recognition.start();
@@ -50,6 +57,15 @@ const LiveTranscription = () => {
       recognition.stop();
     }
   };
+
+  const sendDataToServer = async () => {
+    try {
+      const response = await axios.post('http://127.0.0.1:5000/', {'data': transcript}); 
+      console.log(response.data)
+    } catch (error) {
+      console.error('Error: ', error); 
+    }
+  }
 
   return (
     <div>
