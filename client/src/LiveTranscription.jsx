@@ -4,7 +4,7 @@ import axios from 'axios';
 const LiveTranscription = () => {
   const [fullTranscript, setFullTranscript] = useState('');
   const [tempTranscript, setTempTranscript] = useState(''); 
-  const [score, setScore] = useState(''); 
+  const [score, setScore] = useState(0); 
   const [scamSentences, setScamSentences] = useState([])
   const [recognition, setRecognition] = useState(null);
 
@@ -49,7 +49,7 @@ const LiveTranscription = () => {
 
   useEffect(() => {
     if (tempTranscript) {
-      sendDataToServer(tempTranscript);
+      sendDataToServer(tempTranscript, score);
     }
   }, [tempTranscript]);
 
@@ -65,9 +65,12 @@ const LiveTranscription = () => {
     }
   };
 
-  const sendDataToServer = async (transcript) => {
+  const sendDataToServer = async (transcript, score) => {
     try {
-      const response = await axios.post('http://127.0.0.1:5000/', {'data': transcript});
+      const response = await axios.post('http://127.0.0.1:5000/', {
+        'transcript': transcript, 
+        'score': score
+      });
       console.log(response.data);
       /*
       Expected JSON response:
