@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios'
+import axios from 'axios';
 
 const LiveTranscription = () => {
-  const [transcript, setTranscript] = useState('');
+  const [fullTranscript, setFullTranscript] = useState('');
+  const [tempTranscript, setTempTranscript] = useState(''); 
   const [recognition, setRecognition] = useState(null);
 
   useEffect(() => {
@@ -29,7 +30,11 @@ const LiveTranscription = () => {
         }
       }
 
-      setTranscript(prevTranscript => prevTranscript + finalTranscript);
+      if (finalTranscript) {
+        setTempTranscript(finalTranscript);
+        setFullTranscript(prevTranscript => prevTranscript + finalTranscript);
+      }
+
       document.getElementById('interim').innerHTML = interimTranscript;
     };
 
@@ -41,10 +46,10 @@ const LiveTranscription = () => {
   }, []);
 
   useEffect(() => {
-    if (transcript) {
-      sendDataToServer();
+    if (tempTranscript) {
+      sendDataToServer(tempTranscript);
     }
-  }, [transcript])
+  }, [tempTranscript]);
 
   const startRecognition = () => {
     if (recognition) {
@@ -58,20 +63,28 @@ const LiveTranscription = () => {
     }
   };
 
-  const sendDataToServer = async () => {
+  const sendDataToServer = async (transcript) => {
     try {
-      const response = await axios.post('http://127.0.0.1:5000/', {'data': transcript}); 
-      console.log(response.data)
+      const response = await axios.post('http://127.0.0.1:5000/', {'data': transcript});
+      console.log(response.data);
+      /*
+      Expected JSON response:
+      {
+        "isScam": boolean, // true or false
+        "sentence": string, // the sentence to display
+        "newScore": int // the new score to update in the UI, convert to %
+      }
+      */
     } catch (error) {
-      console.error('Error: ', error); 
+      console.error('Error: ', error);
     }
-  }
+  };
 
   return (
     <div>
       <button onClick={startRecognition}>Start Transcription</button>
       <button onClick={stopRecognition}>Stop Transcription</button>
-      <p>{transcript}</p>
+      <p>{fullTranscript}</p>
       <p id="interim" style={{ color: 'gray' }}></p>
     </div>
   );
