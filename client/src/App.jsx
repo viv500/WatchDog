@@ -5,7 +5,6 @@ import HomePage from './Homepage.jsx'
 import AudioPage from './AudioPage.jsx'
 
 import { useState, useEffect } from 'react'
-import './App.css'
 import axios from 'axios';
 
 function App() {
