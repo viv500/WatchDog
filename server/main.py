@@ -3,7 +3,6 @@ from flask_cors import cross_origin
 
 import random
 from openai import OpenAI
-
 from calculation import context_matching
 
 app = Flask(__name__)

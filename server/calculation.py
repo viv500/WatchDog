@@ -1,20 +1,34 @@
 import random
-from openai import OpenAI;
+from flask import Flask, jsonify, request
+from flask_cors import CORS, cross_origin
+from openai import OpenAI
 from variables import scam_phrases
+from dotenv import load_dotenv
+import os
 
 decrement_value_for_legit_phrases = 3.3
+
+# Load environment variables from .env file
+load_dotenv()
+
+api_key = os.getenv("OPENAI_API_KEY")
 
 client = OpenAI(
     api_key = "sk-None-tgdmWCo2Ge4XFK3dW8XPT3BlbkFJZrb594nsOoyvtdXqxqvY"
 )
 
+
 def context_matching(sentence, current_score, number_of_scams):
 
-    prompt = '''Based on the dictionary can you recognize these phrases in the given sentence 
-    and return it in the following format: if it is true or in the dictionary 
-    [True, given sentence, scam_score], and it it is false and not in the dictionary return 
-    [False, given sentence, 0] thats is all and nothing else. ensure given sentence is enclosed within quotations as a string 
-    when returning return one or the other and no other phrase: '''
+    prompt = '''Based on the dictionary can you recognize these phrases in the given sentence
+      and return it in the following format: based on the context determine the most 
+      
+      
+      simmillerly 
+      
+      
+      matched message to the dictionary and if it is true or in the dictionary [True, given sentence, scam_score], and it it is false and not in the dictionary return [false, given sentence] thats is all and nothing else. when returning return one or the other and no other phrase:
+'''
 
     chat_completion = client.chat.completions.create(
     
