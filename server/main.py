@@ -1,9 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS, cross_origin
-
 import random
 from openai import OpenAI
-
 from calculation import context_matching
 
 client = OpenAI(
