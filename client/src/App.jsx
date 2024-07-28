@@ -1,6 +1,3 @@
-
-
-import LiveTranscription from './LiveTranscription'
 import HomePage from './Homepage.jsx'
 import AudioPage from './AudioPage.jsx'
 
@@ -30,7 +27,6 @@ function App() {
       {page === "chat" && 
         <AudioPage page={page} setPage={setPage}></AudioPage>
       }
-      <LiveTranscription/>
     </div>
   )
 }
