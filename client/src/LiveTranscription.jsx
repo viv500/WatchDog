@@ -5,21 +5,24 @@ const LiveTranscription = () => {
   const [fullTranscript, setFullTranscript] = useState('');
   const [tempTranscript, setTempTranscript] = useState(''); 
   const [score, setScore] = useState(0); 
-  const [scamSentences, setScamSentences] = useState([])
+  const [scamSentences, setScamSentences] = useState([]);
+
+
   const [recognition, setRecognition] = useState(null);
+  const [recognitionActive, setRecognitionActive] = useState(false)
 
   useEffect(() => {
     if (!('webkitSpeechRecognition' in window)) {
       alert('Your browser does not support the Web Speech API.');
       return;
     }
-    
+
     const SpeechRecognition = window.webkitSpeechRecognition;
     const recognition = new SpeechRecognition();
     recognition.continuous = true;
     recognition.interimResults = true;
     recognition.lang = 'en-US';
-    
+
     recognition.onresult = (event) => {
       let interimTranscript = '';
       let finalTranscript = '';
@@ -54,38 +57,33 @@ const LiveTranscription = () => {
   }, [tempTranscript]);
 
   const startRecognition = () => {
-    if (recognition) {
+    if (recognition && !recognitionActive) {
       recognition.start();
+      setRecognitionActive(!recognitionActive)
     }
   };
 
   const stopRecognition = () => {
-    if (recognition) {
+    if (recognition && recognitionActive) {
       recognition.stop();
+      setRecognitionActive(!recognitionActive)
     }
   };
 
-  const sendDataToServer = async (transcript, score) => {
+  const sendDataToServer = async (transcript, score, numScams) => {
     try {
       const response = await axios.post('http://127.0.0.1:5000/', {
-        'transcript': transcript, 
-        'score': score
+        'sentence': transcript, 
+        'score': score, 
+        'num_scams': numScams
       });
       console.log(response.data);
-      /*
-      Expected JSON response:
-      {
-        "isScam": boolean, // true or false
-        "sentence": string, // the sentence to display
-        "newScore": int // the new score to update in the UI, convert to %
+      if (response.data.isScam) {
+        setScamSentences(prevSentences => [...prevSentences, response.data.sentence]);
+        setScore(response.data.newScore);
+      } else {
+        setScore(prevScore => prevScore - 3);
       }
-      */
-     if (response.data[isScam]) {
-        setScamSentences(prevSentences => [...prevSentences, response.data['sentence']])
-        setScore(response.data['newScore'])
-     } else {
-      setScore[prevScore => prevScore - 3]
-     }
     } catch (error) {
       console.error('Error: ', error);
     }
