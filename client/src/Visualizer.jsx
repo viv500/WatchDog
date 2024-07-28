@@ -1,8 +1,7 @@
-import { useCallback, useState, useEffect, useRef } from "react"
+import { useEffect, useRef } from "react"
 import useWindowSize from "./hooks/useWindowSize";
 
 export default function Visualizer({score, activated}) {
-  const scoreRef = useRef(score) 
   const canvasRef = useRef()
   const currentRef = useRef();
   const [x, y] = useWindowSize();
@@ -22,9 +21,6 @@ export default function Visualizer({score, activated}) {
 
       currentRef.current = setInterval(() => {
         analyser.getByteTimeDomainData(dataArray);
-
-        const difference = scoreRef.current - score;
-        scoreRef.current += difference / 10;
 
         const ctx = canvasRef.current.getContext("2d");
 
@@ -94,7 +90,7 @@ export default function Visualizer({score, activated}) {
       <canvas className="w-full h-full" height={140} width={140} ref={canvasRef}></canvas>
       <div className="koulen-400 top-1/2 absolute left-1/2 -translate-x-1/2 -translate-y-1/2" style={{
         fontSize: size/8,
-      }}>{score*100}%</div>
+      }}>{score * 100}%</div>
     </div>
   )
 }

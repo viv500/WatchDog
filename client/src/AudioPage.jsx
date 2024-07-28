@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import Visualizer from "./Visualizer";
 import axios from 'axios'
+import { motion } from "framer-motion";
 
 export default function AudioPage({setPage, page}) {
   const [paused, setPaused] = useState(false);
@@ -95,10 +96,10 @@ export default function AudioPage({setPage, page}) {
     <div className="text-white flex flex-col h-[calc(100vh-8rem)]">
       <Navbar tagline={"suspicious"} setPage={setPage}></Navbar>
       <div className="w-full h-full flex justify-center items-center">
-        <Visualizer activated={paused} score={0.4}></Visualizer>
+        <Visualizer activated={paused} score={Math.floor(Math.max(Math.min(score/100, 100), 0) * 100) / 100}></Visualizer>
       </div>
       <div className="flex justify-center flex-col gap-2">
-        <button className={"pi " + (paused ? "pi-play" : "pi-pause")} onClick={() => {
+        <button className={"pi " + (!paused ? "pi-play" : "pi-pause")} onClick={() => {
           setPaused(!paused)
 
           if (!paused) {
@@ -107,7 +108,14 @@ export default function AudioPage({setPage, page}) {
             stopRecognition()
           }
         }}></button>
-        <div className="w-full rounded-full h-1 bg-gray-800"></div>
+        <motion.div initial={paused ? {
+          backgroundColor: "#ff4747",
+        } : {}} animate={paused ? {
+          backgroundColor: "#ff4747",
+          padding: ["2px", "5px", "2px"],
+        } : {}} transition={ paused ? {
+          repeat: Infinity, 
+        } : {}} className="w-full rounded-full h-1 bg-gray-800"></motion.div>
         <div id="interim"></div>
         {fullTranscript}
       </div>
