@@ -34,9 +34,10 @@ def context_matching(sentence, current_score, number_of_scams):
     else:
         current_score -= decrement_value_for_legit_phrases
 
+    scam_result_array = list(scam_result_array)
     scam_result_array[2] = current_score
                
-    return list(scam_result_array)
+    return scam_result_array
 
 # print(context_matching("Can you give me the last 4 digits of your social security number", 45, 2))
 # print(context_matching("We can give you a free trial ummm, uh you only need to pay us a small processing fee", 45, 2))

@@ -1,10 +1,12 @@
 from flask import Flask, jsonify, request
-from flask_cors import CORS, cross_origin
+from flask_cors import cross_origin
 
 import random
 from openai import OpenAI
 
 from calculation import context_matching
+
+app = Flask(__name__)
 
 client = OpenAI(
     api_key = "sk-None-tgdmWCo2Ge4XFK3dW8XPT3BlbkFJZrb594nsOoyvtdXqxqvY"
@@ -43,11 +45,10 @@ scam_phrases = {
     "Verify your email to continue": 36,
 }
 
-app = Flask(__name__)
-cors = CORS(app, origins=['http://localhost:5173'])
+
 
 @app.route('/', methods=['GET'])
-@cross_origin(origins=['http://localhost:5173'])
+@cross_origin()
 def home(): 
     return jsonify(
         {
@@ -56,7 +57,7 @@ def home():
     )
 
 @app.route('/', methods=['POST'])
-@cross_origin(origins=['http://localhost:5173'])
+@cross_origin() 
 def receive_data(): 
     data = request.json
     sentence = data['sentence']
