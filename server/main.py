@@ -13,6 +13,7 @@ client = OpenAI(
 scam_phrases = {
     "scan": 90,
     "Social security digits": 87, 
+    "What is your SIN number": 85,
     "You've won a prize": 76,
     "Verify your account information": 32,
     "Urgent action required": 81,

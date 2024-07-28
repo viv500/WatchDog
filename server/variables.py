@@ -1,5 +1,7 @@
 scam_phrases = {
+    "scan": 90,
     "Social security digits": 87, 
+    "What is your SIN number": 85,
     "You've won a prize": 76,
     "Verify your account information": 32,
     "Urgent action required": 81,
@@ -29,4 +31,5 @@ scam_phrases = {
     "You have a package waiting for you": 51,
     "We have a job offer for you": 100,
     "Verify your email to continue": 36,
+    "Remote access to users computer": 94,
 }
