@@ -1,31 +1,41 @@
 import random
+from openai import OpenAI
+
+client = OpenAI(
+    api_key = "sk-None-tgdmWCo2Ge4XFK3dW8XPT3BlbkFJZrb594nsOoyvtdXqxqvY"
+)
 
 scam_phrases = {
-    "You've won a prize": 90,
-    "Act now, limited time offer": 80,
-    "Verify your account information": 85,
-    "Urgent action required": 75,
-    "Congratulations, you've been selected": 70,
-    "This is not a scam": 95,
+    "Social security digits": 87, 
+    "You've won a prize": 76,
+    "Verify your account information": 32,
+    "Urgent action required": 81,
+    "This is not a scam": 83,
     "Call this number immediately": 80,
-    "Your account has been compromised": 85,
-    "Exclusive deal just for you": 70,
-    "Pre-approved loan": 65,
-    "Click this link to claim your reward": 95,
-    "Lower your interest rates": 60,
-    "You owe back taxes": 90,
-    "Free trial, just pay shipping": 70,
-    "You have an outstanding warrant": 85,
-    "Suspicious activity detected": 80,
-    "Payment required immediately": 85,
-    "Your computer has a virus": 75,
-    "We need your personal information": 90,
-    "Special promotion, act now": 65,
-    "Urgent message from the IRS": 95,
-    "You have unpaid fines": 80,
-    "This is a limited time offer": 70,
-    "Confirm your password": 85,
-    "Your bank account is at risk": 90
+    "Your account has been compromised": 99,
+    "Exclusive deal just for you": 44,
+    "Pre-approved loan": 95,
+    "Click this link to claim your reward": 83,
+    "Lower your interest rates": 70,
+    "You owe back taxes": 97,
+    "Free trial, just pay shipping": 91,
+    "Suspicious activity detected": 48,
+    "Your computer has a virus": 92,
+    "We need your personal information": 95,
+    "Special promotion, act now": 60,
+    "Urgent message from the IRS": 100,
+    "You have unpaid fines": 76,
+    "Confirm your password": 100,
+    "Your bank account is at risk": 90,
+    "Immediate action required: update your payment information": 90,
+    "This is your final notice. Your car warranty is about to expire": 68,
+    "You have an unclaimed inheritance. Contact us to claim it": 100,
+    "Your subscription is about to expire. Renew now": 33,
+    "Complete this survey to win a gift card": 20,
+    "Immediate response required": 76,
+    "You have a package waiting for you": 51,
+    "We have a job offer for you": 100,
+    "Verify your email to continue": 36,
 }
 
 sample_email = '''Subject: Important Account Notice - Action Required
@@ -62,12 +72,12 @@ This confirmation is required to avoid any delays or issues with your delivery. 
 Thank you for your prompt attention to this matter.'''
 
 def scam_sentence_looper(message):
-    email_sentence_list = message.split(".")
+    email_sentence_list = message.split(". ")
     for sentence in email_sentence_list:
         sentence = sentence.strip()
         result = context_matching(sentence)
         if result[0]:
-            print(f"Scam detected: {result[1]} with a score of {result[2]}")
+            print(f"Scam detected: {result[2]} with a score of {result[3]}. Sentence: {result[1]}")
         else:
             print('Probably Not a scam. Sentence:', result[1])
 
@@ -77,10 +87,35 @@ def context_matching(sentence):
     scam_score = scam_phrases[random_scam]
     random_outcome = random.choice([True, False])
 
-    return [True, random_scam, scam_score] if random_outcome else [False, sentence]
+    prompt = '''Based on the dictionary can you recognize these phrases in the given sentence 
+    and return it in the following format: if it is true or in the dictionary 
+    [True, given sentence, scam_score], and it it is false and not in the dictionary return [false, given sentence] thats is all and nothing else. 
+    when returning return one or the other and no other phrase:
+ '''
+
+    chat_completion = client.chat.completions.create(
+    
+
+    messages=[
+            {"role": "user", "content": prompt + str(scam_phrases) + sentence}],
+
+            model="gpt-3.5-turbo"
+
+    )
+
+    scam_result_array = chat_completion.choices[0].message.content.strip()
+
+                    
+    print(scam_result_array)
 
 # Call the scam_sentence_looper function with sample_email
-scam_sentence_looper(sample_email)
+#scam_sentence_looper(sample_email)
 
 # Call the scam_sentence_looper function with sample_text_message (if you want to test with text messages)
-scam_sentence_looper(sample_text_message)
+#scam_sentence_looper(sample_text_message)
+
+
+context_matching("Can you give me the last 4 digits of your social security number")
+context_matching("We can give you a free trial ummm, uh you only need to pay us a small processing fee")
+context_matching("How has your day been so far Mr. Smith?")
+
