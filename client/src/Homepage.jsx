@@ -3,14 +3,14 @@ import { motion } from "framer-motion";
 
 function Link({ text, href, setPage, quote, comment }) {
   return (
-    <div className="relative hover:bg-white rounded-l-md hover:bg-opacity-20">
+    <div className="relative p-2 rounded-l-md">
       <div className="absolute -z-10 top-1/2 left-2 -translate-y-1/2 pi pi-chevron-right"></div>
       <motion.button
         onClick={() => {
           setPage(href);
         }}
         whileHover={{
-          x: "50px",
+          x: "30px",
         }}
         className="text-left cursor-pointer flex gap-2 inter-400"
       >
@@ -18,8 +18,8 @@ function Link({ text, href, setPage, quote, comment }) {
           {text}
         </div>
         <div>
-          <h3 className="koulen-400 text-xl">"{quote}"</h3>
-          <p className="text-gray-700 inter-600">{comment}</p>
+          <h3 className="koulen-400 text-lg">"{quote}"</h3>
+          <p className="text-gray-700 inter-600 text-sm">{comment}</p>
         </div>
       </motion.button>
     </div>
