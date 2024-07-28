@@ -5,6 +5,7 @@ from openai import OpenAI
 from variables import scam_phrases
 from dotenv import load_dotenv
 import os
+import json
 
 decrement_value_for_legit_phrases = 3.3
 
@@ -20,38 +21,35 @@ client = OpenAI(
 
 def context_matching(sentence, current_score, number_of_scams):
 
-    prompt = '''Based on the dictionary can you recognize these phrases in the given sentence
-      and return it in the following format: based on the context determine the most 
-      
-      
-      simmillerly 
-      
-      
-      matched message to the dictionary and if it is true or in the dictionary [True, given sentence, scam_score], and it it is false and not in the dictionary return [false, given sentence] thats is all and nothing else. when returning return one or the other and no other phrase:
-'''
+    prompt1 = '''This is a dictionary with Scam-Phrase: Scam score key value pairs. '''
+    prompt2 = "This is a sentence: "
+    prompt3 = '''You need to context match the sentence to see if it resembles any of the Scam-Phrase keys in
+    the dictionary. if you could match the sentence to a scam-phrase, return a JSON string '{"match": true, "sentence": "the sentence", "score": scam-score for that scam}'
+    if you werent able to find any similarities between sentence and dictionary keys, return JSON string '{"match": false, "sentence": "the sentence", "score": 0}'
+    make sure the sentence in the JSON is in string form'''
+
 
     chat_completion = client.chat.completions.create(
-    
-    messages=[
-            {"role": "user", "content": prompt + str(scam_phrases) + sentence}],
-
-            model="gpt-3.5-turbo"
-
+        messages=[
+            {"role": "user", "content": prompt1 + str(scam_phrases) + prompt2 + sentence + prompt3}
+        ],
+        model="gpt-3.5-turbo"
     )
 
-    scam_result_array = chat_completion.choices[0].message.content.strip()
+    scam_result_json = chat_completion.choices[0].message.content.strip()
 
-    scam_result_array = eval(scam_result_array)
+    try:
+        scam_result = json.loads(scam_result_json)
+    except json.JSONDecodeError:
+        print("Error decoding JSON: ", scam_result_json)
+        return [False, sentence, current_score]
 
-    if scam_result_array[0]:
-        current_score = (((current_score * number_of_scams) + scam_result_array[2]) / (number_of_scams + 1))
+    if scam_result.get("match"):
+        current_score = (((current_score * number_of_scams) + scam_result["score"]) / (number_of_scams + 1))
     else:
         current_score -= decrement_value_for_legit_phrases
 
-    scam_result_array = list(scam_result_array)
-    scam_result_array[2] = current_score
-               
-    return scam_result_array
+    return [scam_result.get("match"), scam_result.get("sentence", sentence), current_score]
 
 # print(context_matching("Can you give me the last 4 digits of your social security number", 45, 2))
 # print(context_matching("We can give you a free trial ummm, uh you only need to pay us a small processing fee", 45, 2))
