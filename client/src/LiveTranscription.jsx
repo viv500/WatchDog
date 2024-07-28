@@ -4,6 +4,8 @@ import axios from 'axios';
 const LiveTranscription = () => {
   const [fullTranscript, setFullTranscript] = useState('');
   const [tempTranscript, setTempTranscript] = useState(''); 
+  const [score, setScore] = useState(''); 
+  const [scamSentences, setScamSentences] = useState([])
   const [recognition, setRecognition] = useState(null);
 
   useEffect(() => {
@@ -75,6 +77,12 @@ const LiveTranscription = () => {
         "newScore": int // the new score to update in the UI, convert to %
       }
       */
+     if (response.data[isScam]) {
+        setScamSentences(prevSentences => [...prevSentences, response.data['sentence']])
+        setScore(response.data['newScore'])
+     } else {
+      setScore[prevScore => prevScore - 3]
+     }
     } catch (error) {
       console.error('Error: ', error);
     }
