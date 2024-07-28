@@ -2,6 +2,16 @@ body {
     background-color: black !important;
 }
 
+strong {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-variation-settings:
+    "slnt" 0;
+  color: #ff4747;
+}
+
 .inter-400 {
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;

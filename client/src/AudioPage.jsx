@@ -4,6 +4,16 @@ import Visualizer from "./Visualizer";
 import axios from 'axios'
 import { motion } from "framer-motion";
 
+function translate(transcript, badWords) {
+  for (const badWord of badWords) {
+    transcript = transcript.replace(badWord, "<strong>" + badWord + "</strong>")
+  }
+
+  console.log(transcript)
+
+  return transcript
+}
+
 export default function AudioPage({setPage, page}) {
   const [paused, setPaused] = useState(false);
   const [fullTranscript, setFullTranscript] = useState('');
@@ -94,7 +104,7 @@ export default function AudioPage({setPage, page}) {
     
   return (
     <div className="text-white flex flex-col h-[calc(100vh-8rem)]">
-      <Navbar tagline={"suspicious"} setPage={setPage}></Navbar>
+      <Navbar freakiness={score} tagline={"suspicious"} setPage={setPage}></Navbar>
       <div className="w-full h-full flex justify-center items-center">
         <Visualizer activated={paused} score={Math.floor(Math.max(Math.min(score/100, 100), 0) * 100) / 100}></Visualizer>
       </div>
@@ -117,7 +127,9 @@ export default function AudioPage({setPage, page}) {
           repeat: Infinity, 
         } : {}} className="w-full rounded-full h-1 bg-gray-800"></motion.div>
         <div id="interim"></div>
-        {fullTranscript}
+        <div dangerouslySetInnerHTML={{
+          __html: translate(fullTranscript, scamSentences),
+        }}></div>
       </div>
     </div>
   );
