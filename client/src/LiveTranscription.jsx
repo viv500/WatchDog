@@ -49,7 +49,7 @@ const LiveTranscription = () => {
 
   useEffect(() => {
     if (tempTranscript) {
-      sendDataToServer(tempTranscript, score);
+      sendDataToServer(tempTranscript, score, len(scamSentences));
     }
   }, [tempTranscript]);
 
