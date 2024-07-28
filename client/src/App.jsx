@@ -3,6 +3,7 @@ import AudioPage from './AudioPage.jsx'
 
 import { useState, useEffect } from 'react'
 import axios from 'axios';
+import MessagePage from './MessagePage.jsx';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -26,6 +27,9 @@ function App() {
       }
       {page === "chat" && 
         <AudioPage page={page} setPage={setPage}></AudioPage>
+      }
+      {page === "text" &&
+        <MessagePage page={page} setPage={setPage}></MessagePage>
       }
     </div>
   )
