@@ -38,49 +38,6 @@ scam_phrases = {
     "Verify your email to continue": 36,
 }
 
-sample_email = '''Subject: Important Account Notice - Action Required
-
-Dear Vivek,
-
-We hope this email finds you well. As part of our regular security checks, we have detected some unusual activity in your [Bank/Service] account. To ensure the safety and integrity of your account, we require you to verify your account information within the next 48 hours.
-
-What you need to do:
-
-Click on the secure link below to log in to your account.
-Follow the on-screen instructions to confirm your account details.
-If you do not complete this verification process within the given timeframe, your account may be temporarily suspended for your protection.
-Secure Account Verification Link:
-
-www.company.com/employee/wellness
-
-We apologize for any inconvenience this may cause and appreciate your prompt attention to this matter. Our goal is to provide you with the best service and ensure the highest level of security for your account.
-
-If you have any questions or need further assistance, please do not hesitate to contact our customer support team at [Fake Support Email] or call us at [Fake Support Number].
-
-Thank you for your cooperation.
-
-Sincerely,
-
-Albert Johnson
-Security Team
-The Company INC.'''
-
-sample_text_message = '''Your package is scheduled for delivery but we need to confirm your shipping address to ensure timely delivery. Please verify your address by clicking the link below:
-
-This confirmation is required to avoid any delays or issues with your delivery. If we do not receive a response within 24 hours, your package will be returned to the sender.
-
-Thank you for your prompt attention to this matter.'''
-
-def scam_sentence_looper(message):
-    email_sentence_list = message.split(". ")
-    for sentence in email_sentence_list:
-        sentence = sentence.strip()
-        result = context_matching(sentence)
-        if result[0]:
-            print(f"Scam detected: {result[2]} with a score of {result[3]}. Sentence: {result[1]}")
-        else:
-            print('Probably Not a scam. Sentence:', result[1])
-
 def context_matching(sentence):
     scams = list(scam_phrases.keys())
     random_scam = random.choice(scams)
@@ -89,7 +46,7 @@ def context_matching(sentence):
 
     prompt = '''Based on the dictionary can you recognize these phrases in the given sentence 
     and return it in the following format: if it is true or in the dictionary 
-    [True, given sentence, scam_score], and it it is false and not in the dictionary return [false, given sentence] thats is all and nothing else. 
+    [True, given sentence, scam_score], and it it is false and not in the dictionary return [false, given sentence] thats is all and nothing else. ensure given sentence is enclosed within quotations as a string 
     when returning return one or the other and no other phrase:
  '''
 
@@ -106,7 +63,7 @@ def context_matching(sentence):
     scam_result_array = chat_completion.choices[0].message.content.strip()
 
                     
-    print(scam_result_array)
+    print((eval(scam_result_array)))
 
 # Call the scam_sentence_looper function with sample_email
 #scam_sentence_looper(sample_email)
