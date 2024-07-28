@@ -5,15 +5,8 @@ import Navbar from './Navbar'
 
 export default function MessagePage({page, setPage}) {
     const [fullTranscript, setFullTranscript] = useState('')
-    const [transcriptedSubmitted, setTranscriptSubmitted] = useState('')
     const [transcriptMarked, setTranscriptMarked] = useState(false)
     const [score, setScore] = useState(0)
-
-    useEffect(() => {
-        if (!transcriptMarked && fullTranscript && transcriptedSubmitted) {
-            sendData(fullTranscript)
-        }
-    }, [fullTranscript])
 
     const sendData = async(transcript) => {
         try {
@@ -30,8 +23,9 @@ export default function MessagePage({page, setPage}) {
     }
     const onSubmit = e => {
         e.preventDefault(); 
-        
-        setTranscriptSubmitted(true); 
+        if (!transcriptMarked && fullTranscript) {
+            sendData(fullTranscript)
+        }
     }
   return (
     <div>
