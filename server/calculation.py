@@ -15,7 +15,7 @@ load_dotenv()
 api_key = os.getenv("OPENAI_API_KEY")
 
 client = OpenAI(
-    api_key = "sk-None-tgdmWCo2Ge4XFK3dW8XPT3BlbkFJZrb594nsOoyvtdXqxqvY"
+    api_key = api_key
 )
 
 

@@ -2,6 +2,8 @@ from flask import Flask, jsonify, request
 from flask_cors import cross_origin, CORS
 
 from openai import OpenAI
+from dotenv import load_dotenv
+import os
 
 import nltk
 nltk.download('punkt')
@@ -12,8 +14,13 @@ from calculation import context_matching
 app = Flask(__name__)
 CORS(app)
 
+load_dotenv()
+
+api_key = os.getenv("OPENAI_API_KEY")
+
+
 client = OpenAI(
-    api_key = "sk-None-tgdmWCo2Ge4XFK3dW8XPT3BlbkFJZrb594nsOoyvtdXqxqvY"
+    api_key = api_key
 )
 
 scam_phrases = {
