@@ -58,7 +58,7 @@ scam_phrases = {
 def home(): 
     return jsonify(
         {
-            "users": ['vivek', 'harishan', 'manit']
+            "creators": ['vivek', 'harishan', 'sam', 'prasun']
         }
     )
 
@@ -107,8 +107,6 @@ def parse_transcribe():
         'score': score
     }
     return jsonify(response)
-
-
 
 if __name__ == '__main__': 
     app.run(debug=True)
