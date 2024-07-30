@@ -52,7 +52,9 @@ scam_phrases = {
     "Remote access to users computer": 94,
 }
 
-
+@app.route('/myip', methods=['GET'])
+def my_ip(): 
+    return request.headers.getlist("X-Forwarded-For")[0]
 
 @app.route('/', methods=['GET'])
 def home(): 
