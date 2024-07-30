@@ -13,7 +13,7 @@ from dotenv import dotenv_values
 config = dotenv_values(".env")
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/": {"origins": "http://localhost:5173"}})
 
 client = OpenAI(
     api_key = config["OPENAI_API_KEY"]
