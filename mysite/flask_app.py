@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request
-from flask_cors import cross_origin, CORS
+from flask_cors import CORS
 
 from openai import OpenAI
 
@@ -9,11 +9,14 @@ from nltk.tokenize import sent_tokenize
 
 from calculation import context_matching
 
+from dotenv import dotenv_values
+config = dotenv_values(".env")
+
 app = Flask(__name__)
 CORS(app)
 
 client = OpenAI(
-    api_key = "sk-None-tgdmWCo2Ge4XFK3dW8XPT3BlbkFJZrb594nsOoyvtdXqxqvY"
+    api_key = config["OPENAI_API_KEY"]
 )
 
 @app.route('/myip', methods=['GET'])

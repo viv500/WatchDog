@@ -31,4 +31,5 @@ dist-ssr/
 # Python virtual environment
 mysite/__pycache__/
 mysite/.venv/
+client/.env.local
 mysite/.env

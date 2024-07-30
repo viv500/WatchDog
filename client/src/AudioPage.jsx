@@ -4,6 +4,8 @@ import Visualizer from "./Visualizer";
 import axios from 'axios'
 import { motion } from "framer-motion";
 
+export const domain = import.meta.env.PROD ? import.meta.env.VITE_PRODUCTION_URL : import.meta.env.VITE_LOCAL_URL
+
 function translate(transcript, badWords) {
   for (const badWord of badWords) {
     transcript = transcript.replace(badWord, "<strong>" + badWord + "</strong>")
@@ -85,7 +87,7 @@ export default function AudioPage({setPage, page}) {
 
   const sendDataToServer = async (transcript, score, numScams) => {
     try {
-      const response = await axios.post('http://127.0.0.1:5000/', {
+      const response = await axios.post(domain, {
         'sentence': transcript, 
         'score': score, 
         'num_scams': numScams
