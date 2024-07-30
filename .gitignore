@@ -31,3 +31,4 @@ dist-ssr/
 # Python virtual environment
 server/__pycache__/
 server/venv/
+server/.env
