@@ -29,6 +29,6 @@ dist-ssr/
 *.sw?
 
 # Python virtual environment
-server/__pycache__/
-server/venv/
-server/.env
+mysite/__pycache__/
+mysite/.venv/
+mysite/.env

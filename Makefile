@@ -1,6 +1,6 @@
 build:
-	cd server; pip install -r requirements.txt
+	cd mysite; pip install -r requirements.txt
 run:
-	cd server; python main.py
+	cd mysite; python main.py
 venv:
-	python3 -m venv ./server/venv
+	python3 -m venv ./mysite/venv

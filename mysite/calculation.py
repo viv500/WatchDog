@@ -2,7 +2,7 @@ import random
 from flask import Flask, jsonify, request
 from flask_cors import CORS, cross_origin
 from openai import OpenAI
-from variables import scam_phrases
+from variables import scam_call_sentences
 from dotenv import load_dotenv
 import os
 import json
