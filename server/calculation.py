@@ -1,26 +1,19 @@
-import random
-from flask import Flask, jsonify, request
-from flask_cors import CORS, cross_origin
 from openai import OpenAI
-from variables import scam_phrases
-from dotenv import load_dotenv
-import os
+from variables import scam_call_sentences
 import json
 
 decrement_value_for_legit_phrases = 3.3
 
 # Load environment variables from .env file
-load_dotenv()
 
-api_key = os.getenv("OPENAI_API_KEY")
+from dotenv import dotenv_values
+config = dotenv_values(".env")
 
 client = OpenAI(
-    api_key = api_key
+    api_key = config["OPENAI_API_KEY"]
 )
 
-
 def context_matching(sentence, current_score, number_of_scams):
-
     prompt1 = '''This is a dictionary with Scam-Phrase: Scam score key value pairs. '''
     prompt2 = "This is a sentence: "
     prompt3 = '''You need to context match the sentence to see if it resembles any of the Scam-Phrase keys in
@@ -28,10 +21,9 @@ def context_matching(sentence, current_score, number_of_scams):
     if you werent able to find any similarities between sentence and dictionary keys, return JSON string '{"match": false, "sentence": "the sentence", "score": 0}'
     make sure the sentence in the JSON is in string form'''
 
-
     chat_completion = client.chat.completions.create(
         messages=[
-            {"role": "user", "content": prompt1 + str(scam_phrases) + prompt2 + sentence + prompt3}
+            {"role": "user", "content": prompt1 + str(scam_call_sentences) + prompt2 + sentence + prompt3}
         ],
         model="gpt-3.5-turbo"
     )

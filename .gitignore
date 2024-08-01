@@ -30,7 +30,6 @@ dist-ssr/
 
 # Python virtual environment
 server/__pycache__/
-server/venv/
-
-#ignore api key
+server/.venv/
+client/.env.local
 server/.env

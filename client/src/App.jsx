@@ -5,19 +5,21 @@ import { useState, useEffect } from 'react'
 import axios from 'axios';
 import MessagePage from './MessagePage.jsx';
 
+export const domain = import.meta.env.PROD ? import.meta.env.VITE_PRODUCTION_URL : import.meta.env.VITE_LOCAL_URL
+
 function App() {
   const [count, setCount] = useState(0)
   const [page, setPage] = useState("home") // home, chat, text
   const [array, setArray] = useState([])
 
   const fetchAPI = async () => {
-    const response = await axios.get('http://127.0.0.1:5000/');
+    const response = await axios.get();
     console.log(response.data.users)
     setArray(response.data.users)
   }
 
   useEffect(()=> {
-    fetchAPI()
+    fetchAPI(domain)
   }, [])
 
   return (
