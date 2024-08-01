@@ -42,7 +42,10 @@ export default function MessagePage({page, setPage}) {
     }
   return (
     <div>
-        <Navbar freakiness={score} tagline={"suspicious"} setPage={setPage}></Navbar>
+      <div className="text-white flex flex-col h-[calc(100vh-8rem)]">
+        <Navbar tagline={"Message Analysis"} setPage={setPage}></Navbar>
+          <div className="w-full h-full flex justify-center items-center">
+      </div>
         {/* INPUT ELEMENT FOR EMAIL/TEXT TRANSCRIPT */}
         { !transcriptMarked ? (!submitted ? 
           <form onSubmit={onSubmit}>
@@ -58,6 +61,8 @@ export default function MessagePage({page, setPage}) {
           }}></div>
         }
     </div>
+    </div>
+
   )
 }
 

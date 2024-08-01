@@ -26,6 +26,19 @@ function Link({ text, href, setPage, quote, comment }) {
   );
 }
 
+function SimpleLink({ text, href, setPage }) {
+  return (
+    <div className="p-2">
+      <button
+        onClick={() => setPage(href)}
+        className="text-white cursor-pointer text-sm"
+      >
+        {text}
+      </button>
+    </div>
+  );
+}
+
 export default function HomePage({ page, setPage }) {
   const [text, setText] = useState("");
   const fullText = "The all-in-one Cybersecurity Tool to protect from Scam calls, e-mails and messages through advanced conversational analysis...";
@@ -61,19 +74,6 @@ export default function HomePage({ page, setPage }) {
             <div className="flex flex-col gap-4 text-left">
               <Link
                 setPage={setPage}
-                href={"text"}
-                text={
-                  <div className="flex items-center justify-center">
-                    <img src="/text.png" alt="icon" style={{ width: "40px", height: "40px" }} />
-                  </div>
-                }
-                quote={"E-mail & Text Message Scam Detection"}
-                comment={
-                  "Employs AI to analyze voice patterns, identifying fraud in real-time to protect users from malicious phone scams."
-                }
-              />
-              <Link
-                setPage={setPage}
                 href={"chat"}
                 text={
                   <div className="flex items-center justify-center">
@@ -83,6 +83,19 @@ export default function HomePage({ page, setPage }) {
                 quote={"Call Scam Detection"}
                 comment={
                   "Uses Machine Learning to detect and block phishing and spam attempts, ensuring secure communication."
+                }
+              />
+              <Link
+                setPage={setPage}
+                href={"text"}
+                text={
+                  <div className="flex items-center justify-center">
+                    <img src="/text.png" alt="icon" style={{ width: "40px", height: "40px" }} />
+                  </div>
+                }
+                quote={"E-mail & Text Message Scam Detection"}
+                comment={
+                  "Employs AI to analyze voice patterns, identifying fraud in real-time to protect users from malicious phone scams."
                 }
               />
             </div>
@@ -102,6 +115,10 @@ export default function HomePage({ page, setPage }) {
               />
             </motion.div>
           </div>
+        </div>
+        <div className="flex flex-row justify-center gap-4 mt-4">
+          <SimpleLink setPage={setPage} href={"about"} text={"About Us"} />
+          <SimpleLink setPage={setPage} href={"privacy"} text={"Privacy Policy"} />
         </div>
       </div>
     </div>

@@ -106,9 +106,8 @@ export default function AudioPage({setPage, page}) {
     
   return (
     <div className="text-white flex flex-col h-[calc(100vh-8rem)]">
-      <Navbar freakiness={score} tagline={"suspicious"} setPage={setPage}></Navbar>
+      <Navbar tagline={"Call Analysis"} setPage={setPage}></Navbar>
       <div className="w-full h-full flex justify-center items-center">
-        <Visualizer activated={paused} score={Math.floor(Math.max(Math.min(score/100, 100), 0) * 100) / 100}></Visualizer>
       </div>
       <div className="flex justify-center flex-col gap-2">
         <button className={"pi " + (!paused ? "pi-play" : "pi-pause")} onClick={() => {
