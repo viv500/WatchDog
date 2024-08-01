@@ -2,6 +2,8 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 
 from openai import OpenAI
+from dotenv import load_dotenv
+import os
 
 import nltk
 nltk.download('punkt')
@@ -14,6 +16,11 @@ config = dotenv_values(".env")
 
 app = Flask(__name__)
 CORS(app, resources={r"/": {"origins": "http://localhost:5173"}})
+
+load_dotenv()
+
+api_key = os.getenv("OPENAI_API_KEY")
+
 
 client = OpenAI(
     api_key = config["OPENAI_API_KEY"]
