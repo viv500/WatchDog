@@ -1,6 +1,6 @@
 build:
-	cd mysite; pip install -r requirements.txt
+	cd server; pip install -r requirements.txt
 run:
-	cd mysite; python flask_app.py
+	cd server; python main.py
 venv:
-	python3 -m venv ./mysite/venv
+	python3 -m venv ./server/venv
