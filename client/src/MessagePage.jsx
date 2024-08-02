@@ -42,16 +42,19 @@ export default function MessagePage({page, setPage}) {
     }
   return (
     <div>
-      <div className="text-white flex flex-col h-[calc(100vh-8rem)]">
+      <div className="text-black flex flex-col h-[calc(100vh-8rem)]">
         <Navbar tagline={"Message Analysis"} setPage={setPage}></Navbar>
           <div className="w-full h-full flex justify-center items-center">
       </div>
         {/* INPUT ELEMENT FOR EMAIL/TEXT TRANSCRIPT */}
         { !transcriptMarked ? (!submitted ? 
           <form onSubmit={onSubmit}>
-              <div className='flex gap-2'>
-                  <textarea type="text" className='' onChange={(e) => setFullTranscript(e.target.value)} placeholder='Paste the email/text here...' value={fullTranscript}/>
-                  <button className='bg-red-500 h-fit rounded-md p-2 text-white'>Submit</button>
+              <div className='flex gap-2 w-full justify-center max-md:flex-col'>
+                  <textarea type="text" className='w-1/2 max-md:w-full p-1 rounded-md' onChange={(e) => setFullTranscript(e.target.value)} placeholder='Paste the email/text here...' value={fullTranscript}/>
+                    <div className='flex justify-center items-center'>
+                    <button className='bg-red-500 h-fit rounded-md p-2 text-white'>Submit</button>
+                    </div>
+                  
               </div>
           </form> : 
           <Spinner></Spinner>

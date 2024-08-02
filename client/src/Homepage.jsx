@@ -3,8 +3,8 @@ import { motion } from "framer-motion";
 
 function Link({ text, href, setPage, quote, comment }) {
   return (
-    <div className="relative p-2 rounded-l-md">
-      <div className="absolute -z-10 top-1/2 left-2 -translate-y-1/2 pi pi-chevron-right"></div>
+    <div className=" p-2 rounded-l-md">
+      <div className="-z-10 top-1/2 left-2 translate-y-[42px] pi pi-chevron-right"></div>
       <motion.button
         onClick={() => {
           setPage(href);
@@ -56,7 +56,7 @@ export default function HomePage({ page, setPage }) {
     <div className="text-white w-full h-[calc(100vh-8rem)] flex flex-col md:flex-row justify-center items-center">
       <div className="flex flex-col w-full md:max-w-6xl">
         <div className="flex flex-col md:flex-row">
-          <div className="w-full md:w-1/2 flex flex-col justify-center order-2 md:order-1 mt-8 md:mt-0">
+          <div className="w-full md:w-1/2 flex flex-col justify-center mt-8 md:mt-0">
             <motion.h2
               className="text-left mb-8"
               initial={{ opacity: 0 }}
@@ -100,7 +100,7 @@ export default function HomePage({ page, setPage }) {
               />
             </div>
           </div>
-          <div className="w-full md:w-1/2 flex justify-center items-center order-1 md:order-2">
+          <div className="w-full md:w-1/2 flex justify-center items-center ">
             <motion.div
               whileHover={{
                 scale: 1.1,
@@ -111,7 +111,7 @@ export default function HomePage({ page, setPage }) {
               <img
                 src="/WatchDog-Landing.png"
                 alt="Logo"
-                className="max-w-full w-80 h-80"
+                className=" w-80 h-80"
               />
             </motion.div>
           </div>
