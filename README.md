@@ -21,5 +21,5 @@ We learned how to implement NLP matching into our project and the importance of 
 ## What's next for WatchDog 🕒🕒
 Next, we plan to enhance WatchDog cybersecurity capabilities by incorporating multi-language support and expanding our database of scam patterns. We aim to integrate with more communication platforms to provide broader protection. We look to extend our reach and impact, ensuring more people benefit from our advanced cybersecurity solution.
 
-## View hosted site
-https://antifreak.netlify.app
+## Explore our website
+[WatchDog](https://watchdogcyber.live/)
