@@ -1,10 +1,7 @@
 [build]
-  base = "/"
-  publish = "dist"
-  command = "cd client && npm install && npm run build"
+  base = "client"
+  publish = "client/dist"
+  command = "npm install && npm run build"
 
 [build.environment]
   NODE_VERSION = "16"
-
-[context.production]
-  command = "cd client && npm install && npm run build"
