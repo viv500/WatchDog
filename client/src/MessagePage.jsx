@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Navbar from './Navbar';
+import Visualizer from './Visualizer'; // Import the Visualizer component
 
 function Spinner() {
   return (
@@ -50,6 +51,7 @@ export default function MessagePage({ page, setPage }) {
       <div className="text-black flex flex-col h-[calc(100vh-8rem)]">
         <Navbar tagline={"Message Analysis"} setPage={setPage} score={score}></Navbar>
         <div className="w-full h-full flex justify-center items-center">
+          <Visualizer score={score} activated={transcriptMarked} /> {/* Add Visualizer component */}
         </div>
         {/* INPUT ELEMENT FOR EMAIL/TEXT TRANSCRIPT */}
         {!transcriptMarked ? (!submitted ?
