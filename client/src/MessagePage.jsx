@@ -25,11 +25,12 @@ export default function MessagePage({page, setPage}) {
             const response = await axios.post('http://127.0.0.1:5000/message', {
                 'transcript': fullTranscript
             });
+            console.log('here is the data: ')
             console.log(response.data)
             setFullTranscript(response.data.transcript);
             setScore(response.data.score); 
             setTranscriptMarked(true)
-        } catch{
+        } catch(error){
             console.error('Error: ', error); 
         }
     }
@@ -43,7 +44,7 @@ export default function MessagePage({page, setPage}) {
   return (
     <div>
       <div className="text-black flex flex-col h-[calc(100vh-8rem)]">
-        <Navbar tagline={"Message Analysis"} setPage={setPage}></Navbar>
+        <Navbar tagline={"Message Analysis"} setPage={setPage} score={score}></Navbar>
           <div className="w-full h-full flex justify-center items-center">
       </div>
         {/* INPUT ELEMENT FOR EMAIL/TEXT TRANSCRIPT */}

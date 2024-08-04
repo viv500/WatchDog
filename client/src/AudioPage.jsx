@@ -108,7 +108,7 @@ export default function AudioPage({ setPage, page }) {
 
   return (
     <div className="text-white flex flex-col h-[calc(100vh-8rem)]">
-      <Navbar tagline={"Call Analysis"} setPage={setPage}></Navbar>
+      <Navbar tagline={"Call Analysis"} setPage={setPage} score={score}></Navbar>
       <div className="w-full h-full flex justify-center items-center">
         {/* Integrating Visualizer component */}
         <Visualizer score={score} activated={!paused} />
