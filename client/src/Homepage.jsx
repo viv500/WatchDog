@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 function Link({ text, href, setPage, quote, comment }) {
   return (
-    <div className=" p-2 rounded-l-md">
+    <div className="p-2 rounded-l-md">
       <div className="-z-10 top-1/2 left-2 translate-y-[42px] pi pi-chevron-right"></div>
       <motion.button
         onClick={() => {
@@ -55,7 +55,22 @@ export default function HomePage({ page, setPage }) {
   return (
     <div className="text-white w-full h-[calc(100vh-8rem)] flex flex-col md:flex-row justify-center items-center">
       <div className="flex flex-col w-full md:max-w-6xl">
-        <div className="flex flex-col md:flex-row">
+        <div className="flex flex-col md:flex-row-reverse">
+          <div className="w-full md:w-1/2 flex justify-center items-center">
+            <motion.div
+              whileHover={{
+                scale: 1.1,
+                rotate: 5,
+                transition: { type: "spring", stiffness: 300 },
+              }}
+            >
+              <img
+                src="/WatchDog-Landing.png"
+                alt="Logo"
+                className="w-80 h-80"
+              />
+            </motion.div>
+          </div>
           <div className="w-full md:w-1/2 flex flex-col justify-center mt-8 md:mt-0">
             <motion.h2
               className="text-left mb-8"
@@ -63,7 +78,7 @@ export default function HomePage({ page, setPage }) {
               animate={{ opacity: 1 }}
               transition={{ duration: 1 }}
             >
-              {text.split(' ').map(word => 
+              {text.split(' ').map(word =>
                 word === 'Cybersecurity' || word === 'Tool' ? (
                   <span key={word} style={{ color: cyberColor }}>{word} </span>
                 ) : (
@@ -97,23 +112,8 @@ export default function HomePage({ page, setPage }) {
                 comment={
                   "Employs AI to analyze voice patterns, identifying fraud in real-time to protect users from malicious phone scams."
                 }
-              />
+              />git
             </div>
-          </div>
-          <div className="w-full md:w-1/2 flex justify-center items-center ">
-            <motion.div
-              whileHover={{
-                scale: 1.1,
-                rotate: 5,
-                transition: { type: "spring", stiffness: 300 },
-              }}
-            >
-              <img
-                src="/WatchDog-Landing.png"
-                alt="Logo"
-                className=" w-80 h-80"
-              />
-            </motion.div>
           </div>
         </div>
         <div className="flex flex-row justify-center gap-4 mt-4">
