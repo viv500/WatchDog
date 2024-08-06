@@ -54,6 +54,13 @@ export default function HomePage({ page, setPage }) {
 
   return (
     <div className="text-white w-full h-[calc(100vh-8rem)] flex flex-col md:flex-row justify-center items-center">
+      <style jsx>{`
+        @media (max-width: 768px) {
+          .logo-container {
+            padding-top: 150px;
+          }
+        }
+      `}</style>
       <div className="flex flex-col w-full md:max-w-6xl">
         <div className="flex flex-col md:flex-row-reverse">
           <div className="w-full md:w-1/2 flex justify-center items-center">
@@ -63,6 +70,7 @@ export default function HomePage({ page, setPage }) {
                 rotate: 5,
                 transition: { type: "spring", stiffness: 300 },
               }}
+              className="logo-container"
             >
               <img
                 src="/WatchDog-Landing.png"
@@ -73,7 +81,7 @@ export default function HomePage({ page, setPage }) {
           </div>
           <div className="w-full md:w-1/2 flex flex-col justify-center mt-8 md:mt-0">
             <motion.h2
-              className="text-left mb-8 text-xl md:text-2xl lg:text-3xl"
+              className="text-left mb-8"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1 }}
