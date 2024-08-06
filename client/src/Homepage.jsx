@@ -73,7 +73,7 @@ export default function HomePage({ page, setPage }) {
           </div>
           <div className="w-full md:w-1/2 flex flex-col justify-center mt-8 md:mt-0">
             <motion.h2
-              className="text-left mb-8"
+              className="text-left mb-8 text-xl md:text-2xl lg:text-3xl"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1 }}
