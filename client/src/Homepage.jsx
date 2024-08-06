@@ -112,7 +112,7 @@ export default function HomePage({ page, setPage }) {
                 comment={
                   "Employs AI to analyze voice patterns, identifying fraud in real-time to protect users from malicious phone scams."
                 }
-              />git
+              />
             </div>
           </div>
         </div>
