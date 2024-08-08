@@ -1,5 +1,4 @@
 # WatchDog
-
 ## Inspiration💡💡
 The rise in sophisticated phone scams, especially targeting vulnerable groups like seniors, inspired us to create WatchDog. We saw an urgent need for a cybersecurity solution that leverages advanced technology to provide robust, real-time protection against these threats.
 
