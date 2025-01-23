@@ -135,7 +135,6 @@ model.summary()
 # Step 4: Train the model
 model.fit(padded_sequences, labels, epochs=10, batch_size=8)
 
-# Step 5: Test the model
 
 while True:
     input_sentence = input("What's the sentence? ")
